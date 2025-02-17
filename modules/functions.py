@@ -7,6 +7,3 @@ def get_todos(filepath=FILEPATH):
 def write_todos(todos_args, filepath=FILEPATH):
     with open(filepath,'w') as file :
         file.writelines(todos_args)
-
-
-print("hello from functions")
