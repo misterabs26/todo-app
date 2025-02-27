@@ -9,11 +9,14 @@ list_box = sg.Listbox(values=todofunc.get_todos(),
                       enable_events=True,
                       size=(45,10))
 edit_button = sg.Button("Edit")
+complete_button = sg.Button("Complete")
+exit_button = sg.Button("Exit")
 
 window = sg.Window('My Todo App',
                    layout=[[list_box,edit_button],
                            [label],
-                           [input_box,add_button]],
+                           [input_box,add_button],
+                           [complete_button],[exit_button]],
                    font=('Helvetica',12))
 
 def update_window(window_element, updated_value=None):
@@ -46,6 +49,19 @@ while True:
             todofunc.write_todos(todos)
             input_box.update("")
             update_window('todos_items',todos)
+
+        case "Complete":
+            selected_todo = values["todos_items"][0]
+            todos = todofunc.get_todos()
+            target_todo_index = todos.index(selected_todo)
+
+            todos.pop(target_todo_index)
+            todofunc.write_todos(todos)
+            update_window('todos_items',todos)
+            update_window('todo',"")
+        case "Exit":
+            print("Byeeee ;)")
+            break
         case 'todos_items':
             update_window('todo', values["todos_items"][0])
         case sg.WIN_CLOSED:
