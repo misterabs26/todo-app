@@ -1,3 +1,4 @@
 Maglaba
-Maghugas ng plato
 Mag-aral 
+Editing program
+Fixing bugs
