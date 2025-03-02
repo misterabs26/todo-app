@@ -83,6 +83,9 @@ while True:
                 todofunc.write_todos(todos)
                 update_window('todos_items',todos)
                 update_window('todo',"")
+                # if there still pending todos, the list selection will set to the first item
+                if todos:
+                    window["todos_items"].update(set_to_index=0)
             except IndexError:
                 sg.popup("Please select an item first.",font=('Helvetica',15))
         case 'todos_items':

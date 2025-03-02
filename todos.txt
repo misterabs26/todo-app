@@ -1,4 +1,3 @@
-Maglaba
-Mag-aral 
-Editing program
-Fixing bugs
+Fix the bug
+Laundry
+Cleaning the code
