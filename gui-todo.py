@@ -4,7 +4,7 @@ import time
 
 sg.theme("Green")
 
-clock = sg.Text('',key="clock")
+clock = sg.Text(key="clock")
 label = sg.Text("Type in a to-do")
 input_box = sg.InputText(tooltip="Enter a todo", key="todo")
 add_button = sg.Button("Add")
@@ -16,12 +16,14 @@ edit_button = sg.Button("Edit")
 complete_button = sg.Button("Complete")
 exit_button = sg.Button("Exit")
 
+buttons = [add_button,edit_button,complete_button,exit_button]
+
 window = sg.Window('My Todo App',
                    layout=[[clock],
-                           [list_box,edit_button],
+                           [list_box],
                            [label],
-                           [input_box,add_button],
-                           [complete_button],[exit_button]],
+                           [input_box],
+                           buttons],
                    font=('Helvetica',12))
 
 def update_window(window_element, updated_value=None):
@@ -35,7 +37,14 @@ def update_window(window_element, updated_value=None):
 
 while True:
     event, values = window.read(timeout=200)
-    window["clock"].update(value=time.strftime("%b, %d, %Y %H:%M:%S"))
+
+    # will check if the window is open before updating it else, it will close
+    if event == sg.WIN_CLOSED or event == "Exit":
+        sg.popup("Bye-bye", text_color="yellow", auto_close=True)
+        break
+    if window:
+        window["clock"].update(value=time.strftime("%b, %d, %Y %H:%M:%S"))
+
     match event:
         case "Add":
             todo = values["todo"] + "\n"
@@ -69,16 +78,9 @@ while True:
                 update_window('todos_items',todos)
                 update_window('todo',"")
             except IndexError:
-                sg.popup("Please select an item first.",
-                         font=('Helvetica',15))
-        case "Exit":
-            print("Bye")
-            break
+                sg.popup("Please select an item first.",font=('Helvetica',15))
         case 'todos_items':
             update_window('todo', values["todos_items"][0])
 
-        case sg.WIN_CLOSED:
-            print("Bye-bye")
-            break
 
 window.close()
