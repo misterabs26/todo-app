@@ -1,6 +1,13 @@
 from modules import functions as todofunc
 import FreeSimpleGUI as sg
 import time
+import os
+
+# Creates todos.txt file if it does not exist
+if not os.path.exists("todos.txt"):
+    with open("todos.txt","w") as file:
+        pass
+
 
 sg.theme("Green")
 
