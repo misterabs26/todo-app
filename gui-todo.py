@@ -76,7 +76,8 @@ while True:
                     todofunc.write_todos(todos)
                     update_window('todos_items',todos)
                 else:
-                    sg.popup("Please enter a valid to-do item.", font=('Helvetica', 15))
+                    sg.popup("Please enter a valid to-do item.",
+                             font=('Helvetica', 15))
             except IndexError:
                 sg.popup("Please select an item first.",
                          font=('Helvetica',15))
